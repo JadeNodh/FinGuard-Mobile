@@ -5,6 +5,7 @@ import { LineChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { getTransactions } from '../services/api';
+import PaywallModal from '../components/PaywallModal';
 
 const DashboardScreen = () => {
   const screenWidth = Dimensions.get('window').width;
@@ -18,6 +19,7 @@ const DashboardScreen = () => {
   const [balance, setBalance] = useState(0);
   const [income, setIncome] = useState(0);
   const [expenses, setExpenses] = useState(0);
+  const [showPaywall, setShowPaywall] = useState(false);
 
   useEffect(() => {
     if (isFocused) {
@@ -56,6 +58,7 @@ const DashboardScreen = () => {
 
   return (
     <View className="flex-1 items-center p-4">
+      <PaywallModal visible={showPaywall} onClose={() => setShowPaywall(false)} />
       <Text className="text-2xl mb-4">Dashboard</Text>
       <View className="flex-row justify-around w-full mb-4">
         <View className="bg-white p-4 rounded-lg shadow-md items-center">
@@ -98,8 +101,10 @@ const DashboardScreen = () => {
           borderRadius: 16,
         }}
       />
+      <Button title="Premium Feature" onPress={() => setShowPaywall(true)} />
       <Button title="Logout" onPress={() => auth().signOut()} />
       <Button title="Add Transaction" onPress={() => navigation.navigate('AddTransaction')} />
+      <Button title="Upgrade to Premium" onPress={() => navigation.navigate('Upgrade')} />
     </View>
   );
 };

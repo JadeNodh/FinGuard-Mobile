@@ -12,6 +12,9 @@ app.get('/', (req, res) => {
 
 app.use('/transactions', transactionsRouter);
 
+const premiumRouter = require('./routes/premium');
+app.use('/premium', premiumRouter);
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

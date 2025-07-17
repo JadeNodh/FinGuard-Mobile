@@ -4,18 +4,32 @@ import auth from '@react-native-firebase/auth';
 import AuthNavigator from './AuthNavigator';
 import DashboardScreen from '../screens/DashboardScreen';
 import AddTransactionScreen from '../screens/AddTransactionScreen';
+import UpgradeScreen from '../screens/UpgradeScreen';
+import PremiumDashboardScreen from '../screens/PremiumDashboardScreen';
+import DebtCalculatorScreen from '../screens/DebtCalculatorScreen';
+import ReportsScreen from '../screens/ReportsScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getPremiumStatus } from '../services/api';
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const [isPremium, setIsPremium] = useState(false);
 
   function onAuthStateChanged(user) {
     setUser(user);
+    if (user) {
+      checkPremiumStatus();
+    }
     if (initializing) setInitializing(false);
   }
+
+  const checkPremiumStatus = async () => {
+    const premiumStatus = await getPremiumStatus();
+    setIsPremium(premiumStatus.isActive);
+  };
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -28,10 +42,19 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
-          <>
-            <Stack.Screen name="Dashboard" component={DashboardScreen} />
-            <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
-          </>
+          isPremium ? (
+            <>
+              <Stack.Screen name="PremiumDashboard" component={PremiumDashboardScreen} />
+              <Stack.Screen name="DebtCalculator" component={DebtCalculatorScreen} />
+              <Stack.Screen name="Reports" component={ReportsScreen} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Dashboard" component={DashboardScreen} />
+              <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
+              <Stack.Screen name="Upgrade" component={UpgradeScreen} />
+            </>
+          )
         ) : (
           <Stack.Screen name="Auth" component={AuthNavigator} options={{ headerShown: false }} />
         )}

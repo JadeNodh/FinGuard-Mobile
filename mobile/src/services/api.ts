@@ -18,3 +18,13 @@ export const getTransactions = async () => {
   const response = await axios.get(`${API_URL}/transactions`);
   return response.data;
 };
+
+export const getPremiumStatus = async () => {
+  const response = await axios.get(`${API_URL}/premium`);
+  return response.data;
+};
+
+export const subscribeToPremium = async () => {
+  const response = await axios.post(`${API_URL}/premium/subscribe`);
+  return response.data;
+};

@@ -30,3 +30,11 @@ INSERT INTO categories (name, type) VALUES
 ('Groceries', 'expense'),
 ('Transportation', 'expense'),
 ('Entertainment', 'expense');
+
+CREATE TABLE premium (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  is_active BOOLEAN NOT NULL DEFAULT false,
+  expiry_date TIMESTAMP WITH TIME ZONE,
+  features TEXT[]
+);

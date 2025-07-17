@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import AuthNavigator from './AuthNavigator';
-import DashboardScreen from '../screens/DashboardScreen'; // This will be created later
+import DashboardScreen from '../screens/DashboardScreen';
+import AddTransactionScreen from '../screens/AddTransactionScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
@@ -27,7 +28,10 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
-          <Stack.Screen name="Dashboard" component={DashboardScreen} />
+          <>
+            <Stack.Screen name="Dashboard" component={DashboardScreen} />
+            <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
+          </>
         ) : (
           <Stack.Screen name="Auth" component={AuthNavigator} options={{ headerShown: false }} />
         )}

@@ -1,13 +1,8 @@
 import React from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
-import { TailwindProvider } from 'nativewind';
 
 const App = () => {
-  return (
-    <TailwindProvider>
-      <AppNavigator />
-    </TailwindProvider>
-  );
+  return <AppNavigator />;
 };
 
 export default App;

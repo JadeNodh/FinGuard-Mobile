@@ -12,6 +12,15 @@ app.get('/', (req, res) => {
 
 app.use('/transactions', transactionsRouter);
 
+const premiumRouter = require('./routes/premium');
+app.use('/premium', premiumRouter);
+
+const aiRouter = require('./routes/ai');
+app.use('/ai', aiRouter);
+
+const familyRouter = require('./routes/family');
+app.use('/family', familyRouter);
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

@@ -8,6 +8,7 @@ import UpgradeScreen from '../screens/UpgradeScreen';
 import PremiumDashboardScreen from '../screens/PremiumDashboardScreen';
 import DebtCalculatorScreen from '../screens/DebtCalculatorScreen';
 import ReportsScreen from '../screens/ReportsScreen';
+import FamilyManagementScreen from '../screens/FamilyManagementScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getPremiumStatus } from '../services/api';
 
@@ -47,6 +48,7 @@ const AppNavigator = () => {
               <Stack.Screen name="PremiumDashboard" component={PremiumDashboardScreen} />
               <Stack.Screen name="DebtCalculator" component={DebtCalculatorScreen} />
               <Stack.Screen name="Reports" component={ReportsScreen} />
+              <Stack.Screen name="FamilyManagement" component={FamilyManagementScreen} />
             </>
           ) : (
             <>
